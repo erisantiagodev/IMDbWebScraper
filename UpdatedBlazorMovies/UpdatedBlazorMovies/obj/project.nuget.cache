@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8GSdDSFO4GyfE+c2NpkNxzyVpZbSpqVsolhNYUBUVby+28rOTm/j35eNRw77rcNYombcyTWvkZyyt3pZTLjiug==",
+  "dgSpecHash": "xzIQbJTJZ5vyzzOfyWD7UcN2tzoOj8DwCRZTLVh9zp5ExAz6UQJChr2Hv0mPyyK6/v2gYnDsatp+YHtVyrrZww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\erica\\OneDrive\\Documents\\C# Practice Apps\\BlazorProjects\\UpdatedBlazorMovies\\UpdatedBlazorMovies\\UpdatedBlazorMovies.csproj",
+  "projectFilePath": "C:\\Users\\erica\\OneDrive\\Documents\\C#GitHubRepo\\IDMbWebScraper\\UpdatedBlazorMovies\\UpdatedBlazorMovies\\UpdatedBlazorMovies.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\erica\\.nuget\\packages\\htmlagilitypack\\1.11.28\\htmlagilitypack.1.11.28.nupkg.sha512",
     "C:\\Users\\erica\\.nuget\\packages\\matblazor\\2.8.0\\matblazor.2.8.0.nupkg.sha512",

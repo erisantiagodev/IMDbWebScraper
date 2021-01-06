@@ -1,4 +1,4 @@
 ﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/" Path="C:\Users\erica\OneDrive\Documents\C# Practice Apps\BlazorProjects\UpdatedBlazorMovies\UpdatedBlazorMovies\obj\Debug\net5.0\scopedcss\bundle\" />
+  <ContentRoot BasePath="/" Path="C:\Users\erica\OneDrive\Documents\C#GitHubRepo\IDMbWebScraper\UpdatedBlazorMovies\UpdatedBlazorMovies\obj\Debug\net5.0\scopedcss\bundle\" />
   <ContentRoot BasePath="_content/MatBlazor" Path="C:\Users\erica\.nuget\packages\matblazor\2.8.0\build\..\staticwebassets\" />
 </StaticWebAssets>

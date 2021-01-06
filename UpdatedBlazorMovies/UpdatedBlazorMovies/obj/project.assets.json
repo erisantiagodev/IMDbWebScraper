@@ -493,11 +493,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\erica\\OneDrive\\Documents\\C# Practice Apps\\BlazorProjects\\UpdatedBlazorMovies\\UpdatedBlazorMovies\\UpdatedBlazorMovies.csproj",
+      "projectUniqueName": "C:\\Users\\erica\\OneDrive\\Documents\\C#GitHubRepo\\IDMbWebScraper\\UpdatedBlazorMovies\\UpdatedBlazorMovies\\UpdatedBlazorMovies.csproj",
       "projectName": "UpdatedBlazorMovies",
-      "projectPath": "C:\\Users\\erica\\OneDrive\\Documents\\C# Practice Apps\\BlazorProjects\\UpdatedBlazorMovies\\UpdatedBlazorMovies\\UpdatedBlazorMovies.csproj",
+      "projectPath": "C:\\Users\\erica\\OneDrive\\Documents\\C#GitHubRepo\\IDMbWebScraper\\UpdatedBlazorMovies\\UpdatedBlazorMovies\\UpdatedBlazorMovies.csproj",
       "packagesPath": "C:\\Users\\erica\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\erica\\OneDrive\\Documents\\C# Practice Apps\\BlazorProjects\\UpdatedBlazorMovies\\UpdatedBlazorMovies\\obj\\",
+      "outputPath": "C:\\Users\\erica\\OneDrive\\Documents\\C#GitHubRepo\\IDMbWebScraper\\UpdatedBlazorMovies\\UpdatedBlazorMovies\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
