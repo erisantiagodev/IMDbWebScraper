@@ -1,6 +1,6 @@
 # IDMbWebScraper
 
-This app uses IMDB's REST API to retrieve the plot of a tv show or movie, as well as the main cast. It also scrapes the web for movie theathers nearby and top rated movies.
+This app uses IMDB's REST API to retrieve the plot of a tv show or movie, as well as the main cast. It also scrapes the web for movie theaters in the location you search and returns top rated movies. 
 
 ## Examples
 
