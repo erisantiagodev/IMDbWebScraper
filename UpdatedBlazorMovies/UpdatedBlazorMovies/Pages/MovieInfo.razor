@@ -1,0 +1,101 @@
+﻿@using BlazorMovies.Data
+
+@using Newtonsoft.Json
+
+@page "/movieinfo"
+
+<h3>Movie Info</h3>
+
+<br />
+
+<EditForm Model="movie" OnValidSubmit="@GetMovieInfo">
+    <DataAnnotationsValidator />
+
+    <div class="row">
+        <div class="col-md-4">
+            <label for="">Title</label>
+            <InputText @bind-Value="movie.Title" id=""></InputText>
+            <ValidationMessage For="@(() => movie.Title)" />
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-4">
+            <label for="">Year</label>
+            <InputText @bind-Value="movie.Year" id=""></InputText>
+            <ValidationMessage For="@(() => movie.Year)" />
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <button @onclick="GetMovieInfo" class="btn btn-light">Get Movie</button>
+
+    <br />
+    <br />
+    <br />
+
+    @*<label for="">Plot</label>
+        <div class="form-row">
+            <div class="form-group">
+                <textarea style="width:1000px;resize:vertical" rows="8" @bind="@movie.moviePlot" />
+            </div>
+        </div>*@
+
+    <br />
+
+    <label for="">Plot</label>
+    <div class="form-group">
+        <div class="container">
+            <div class="comment">
+                <textarea class="textinput" rows="8" @bind="@movie.moviePlot" />
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <label for="">Actors</label>
+    <div class="form-group">
+        <div class="container">
+            <div class="comment">
+                <textarea class="textinput" rows="1" @bind="@movie.movieActors" />
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+</EditForm>
+
+
+@code {
+
+    Movie movie = new Movie();
+    HttpClient ApiClient = new HttpClient();
+
+    protected async Task GetMovies()
+    {
+        string Title = movie.Title;
+        string Year = movie.Year;
+        string key = "b256c244";
+
+        string url = $"http://www.omdbapi.com/?apikey={key}&t={movie.Title}&y={movie.Year}&plot=full";
+
+        string response = await ApiClient.GetStringAsync(url);
+
+        Movie movieObject = JsonConvert.DeserializeObject<Movie>(response);
+
+        movie.moviePlot = movieObject.Plot;
+        movie.movieActors = movieObject.Actors;
+    }
+
+    protected async Task GetMovieInfo()
+    {
+        await GetMovies();
+    }
+
+}

@@ -1,0 +1,235 @@
+﻿@page "/movietheaters"
+
+@using UpdatedBlazorMovies.Data
+@using System.IO;
+@using HtmlAgilityPack;
+
+@inject ScrapperService Scrapit
+
+@if (theater.city == null && theater.state == null)
+{
+    <h3>Movie Theaters in Location</h3>
+}
+
+else
+{
+    <h3>Movie Theaters in @theater.city, @theater.state</h3>
+}
+
+<br />
+
+<EditForm Model="theater" OnValidSubmit="@GetTheaters">
+    <DataAnnotationsValidator />
+
+    <div class="row">
+        <div class="col-md-4">
+            <label for="">City</label>
+            <InputText @bind-Value="theater.city" id=""></InputText>
+            <ValidationMessage For="@(() => theater.city)" />
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-4">
+            <label for="">State</label>
+            <InputText @bind-Value="theater.state" id=""></InputText>
+            <ValidationMessage For="@(() => theater.state)" />
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <button @onclick="GetTheaters" class="btn btn-light">Get Theaters</button>
+
+    <br />
+
+</EditForm>
+
+<br />
+<br />
+
+@if (TheaterNameData == null)
+{
+    <p><em>Loading...</em></p>
+}
+
+
+else
+{
+    <style>
+        td,
+        th {
+            border: 1px solid rgb(190, 190, 190);
+            padding: 10px;
+            text-align: center;
+        }
+
+        td {
+            text-align: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        th[scope="col"] {
+            background-color: #3f87a6;
+            color: #fff;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 2px solid rgb(200, 200, 200);
+            letter-spacing: 1px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+    </style>
+    <table>
+        <tr>
+            <th scope="col">Theaters</th>
+            <th scope="col">Street Addresses</th>
+            <th scope="col">Locality</th>
+            @*<th scope="col">Phone</th>*@
+        </tr>
+        <tr>
+            <td>
+                @foreach (var data in TheaterNameData)
+                {
+                    <ul scope="col">@data.ToString()</ul>
+                }
+            </td>
+            <td>
+                @foreach (var data in TheaterAddressData)
+                {
+                    <ul scope="col">@data.ToString()</ul>
+                }
+            </td>
+            <td>
+                @foreach (var data in TheaterLocalityData)
+                {
+                    <ul scope="col">@data.ToString()</ul>
+                }
+            </td>
+            @*<td>
+                @foreach (var data in TheaterPhoneData)
+                {
+                    <ul scope="col">@data.ToString()</ul>
+                }
+            </td>*@
+        </tr>
+    </table>
+}
+
+
+@code
+{
+    MovieTheater theater = new MovieTheater();
+
+
+    protected async Task<List<string>> MovieTheaterScraper()
+    {
+        string city = theater.city;
+        string state = theater.state;
+
+        List<string> TheaterList = new List<string>();
+
+        HttpClient hc = new HttpClient();
+        HttpResponseMessage result = await hc.GetAsync($"https://www.yellowpages.com/search?search_terms=Movie+Theaters&geo_location_terms={theater.city}%2C+{theater.state}");
+        Stream stream = await result.Content.ReadAsStreamAsync();
+        HtmlDocument doc = new HtmlDocument();
+        doc.Load(stream);
+        var TheaterNames = doc.DocumentNode.SelectNodes("//a[@class='business-name']");
+
+        foreach (var theaters in TheaterNames)
+        {
+            TheaterList.Add(theaters.InnerText);
+        }
+
+        return TheaterList;
+    }
+
+    protected async Task<List<string>> MovieTheaterAddressScraper()
+    {
+        string city = theater.city;
+        string state = theater.state;
+
+        List<string> TheaterAddressList = new List<string>();
+
+        HttpClient hc = new HttpClient();
+        HttpResponseMessage result = await hc.GetAsync($"https://www.yellowpages.com/search?search_terms=Movie+Theaters&geo_location_terms={theater.city}%2C+{theater.state}");
+        Stream stream = await result.Content.ReadAsStreamAsync();
+        HtmlDocument doc = new HtmlDocument();
+        doc.Load(stream);
+        var StreetNames = doc.DocumentNode.SelectNodes("//div[@class='street-address']");
+
+        foreach (var streetName in StreetNames)
+        {
+            TheaterAddressList.Add(streetName.InnerText);
+        }
+
+        return TheaterAddressList;
+    }
+
+    protected async Task<List<string>> MovieTheaterLocalityScraper()
+    {
+        string city = theater.city;
+        string state = theater.state;
+
+        List<string> TheaterLocalityList = new List<string>();
+
+        HttpClient hc = new HttpClient();
+        HttpResponseMessage result = await hc.GetAsync($"https://www.yellowpages.com/search?search_terms=Movie+Theaters&geo_location_terms={theater.city}%2C+{theater.state}");
+        Stream stream = await result.Content.ReadAsStreamAsync();
+        HtmlDocument doc = new HtmlDocument();
+        doc.Load(stream);
+        var LocalityNames = doc.DocumentNode.SelectNodes("//div[@class='locality']");
+
+        foreach (var locality in LocalityNames)
+        {
+            TheaterLocalityList.Add(locality.InnerText);
+        }
+
+        return TheaterLocalityList;
+    }
+
+    //protected async Task<List<string>> MovieTheaterPhoneScraper()
+    //{
+    //    string city = theater.city;
+    //    string state = theater.state;
+
+    //    List<string> TheaterPhoneList = new List<string>();
+
+    //    HttpClient hc = new HttpClient();
+    //    HttpResponseMessage result = await hc.GetAsync($"https://www.yellowpages.com/search?search_terms=Movie+Theaters&geo_location_terms={theater.city}%2C+{theater.state}");
+    //    Stream stream = await result.Content.ReadAsStreamAsync();
+    //    HtmlDocument doc = new HtmlDocument();
+    //    doc.Load(stream);
+    //    var TheaterPhones = doc.DocumentNode.SelectNodes("//div[@class='phones phone primary']");
+
+    //    foreach (var phones in TheaterPhones)
+    //    {
+    //        TheaterPhoneList.Add(phones.InnerText);
+    //    }
+
+    //    return TheaterPhoneList;
+    //}
+
+    public List<string> TheaterNameData;
+    public List<string> TheaterAddressData;
+    public List<string> TheaterLocalityData;
+    //public List<string> TheaterPhoneData;
+
+    protected async Task GetTheaters()
+    {
+        TheaterNameData = await MovieTheaterScraper();
+        TheaterAddressData = await MovieTheaterAddressScraper();
+        TheaterLocalityData = await MovieTheaterLocalityScraper();
+        //TheaterPhoneData = await MovieTheaterPhoneScraper();
+    }
+}

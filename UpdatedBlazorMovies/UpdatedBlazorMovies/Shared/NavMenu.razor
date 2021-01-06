@@ -1,0 +1,32 @@
+﻿<nav>
+    <a href="#"></a>
+    <button @onclick="ToggleNavMenu">
+        <span></span>
+    </button>
+    <div class="@NavMenuCssClass">
+        <ul>
+            <li>
+                <NavLink href="" Match="NavLinkMatch.All">Home</NavLink>
+            </li>
+            <li>
+                <NavLink href="movieinfo">Movie Info</NavLink>
+            </li>
+            <li>
+                <NavLink href="movietheaters">Movie Theaters</NavLink>
+            </li>
+            <li>
+                <NavLink href="topratedmovies">Top Rated Movies</NavLink>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+@code { private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    } }
